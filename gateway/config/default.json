@@ -8,5 +8,10 @@
     "username": "trechit",
     "password": "password",
     "database": "trechit-node"
+  },
+  "crypto": {
+    "hash": {
+      "length": 128
+    }
   }
 }
