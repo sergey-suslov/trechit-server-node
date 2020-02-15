@@ -7,13 +7,17 @@ import config from 'config'
 import expressPinoLogger from 'express-pino-logger'
 import { loggerExpress, injectLogger } from './utils/logger'
 import { errorHandler } from './middlewares/errors'
+import routes from './routes'
 
-createConnection().then(() => {
-  const app = express()
+createConnection()
+  .then(() => {
+    const app = express()
 
-  app.use(expressPinoLogger({ logger: loggerExpress }))
-  app.use(injectLogger)
-  app.use(errorHandler)
+    app.use(expressPinoLogger({ logger: loggerExpress }))
+    app.use(injectLogger)
+    app.use(routes)
+    app.use(errorHandler)
 
-  app.listen(config.get('port') || 3000, () => console.log('Running on port', config.get('port') || 3000))
-})
+    app.listen(config.get('port') || 8080, () => console.log('Running on port', config.get('port') || 8080))
+  })
+  .catch(console.log)
